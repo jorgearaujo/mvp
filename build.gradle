@@ -1,16 +1,4 @@
-buildscript {
-    repositories {
-        mavenCentral()
-        maven { url "https://jitpack.io" }
-    }
-    dependencies {
-        //AspectJ
-        classpath 'com.github.Archinamon:GradleAspectJ-Android:2.4.3'
-    }
-}
-
 apply plugin: 'com.android.library'
-apply plugin: 'com.archinamon.aspectj'
 
 android {
     compileSdkVersion 25
@@ -36,12 +24,19 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.1.1'
-    compile(project(':lightinject'))
     compile 'de.greenrobot:eventbus:2.4.0'
+    compile(project(":lightinject"))
 }
 
-aspectj {
-    weaveInfo true //turns on debug weaving information
-    ignoreErrors false //explicitly ignores all aspectJ errors, could break a build
-    addSerialVersionUID false //adds serialUID for Serializable interface inter-type injections
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.uphyca.gradle:gradle-android-aspectj-plugin:0.9.+'
+        classpath 'com.nostra13.universalimageloader:universal-image-loader:1.9.3'
+    }
 }
+
+apply plugin: 'android-aspectj'
