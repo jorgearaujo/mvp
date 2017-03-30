@@ -55,5 +55,5 @@ public class BasePresenter <VIEW extends IBaseView> implements IBasePresenter {
 		return bus;
 	}
 
-	protected void onEvent(Object object) {}
+	public void onEvent(Object object) {}
 }
