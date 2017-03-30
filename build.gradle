@@ -1,0 +1,47 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven { url "https://jitpack.io" }
+    }
+    dependencies {
+        //AspectJ
+        classpath 'com.github.Archinamon:GradleAspectJ-Android:2.4.3'
+    }
+}
+
+apply plugin: 'com.android.library'
+apply plugin: 'com.archinamon.aspectj'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.0"
+
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:23.1.1'
+    compile(project(':lightinject'))
+    compile 'de.greenrobot:eventbus:2.4.0'
+}
+
+aspectj {
+    weaveInfo true //turns on debug weaving information
+    ignoreErrors false //explicitly ignores all aspectJ errors, could break a build
+    addSerialVersionUID false //adds serialUID for Serializable interface inter-type injections
+}
